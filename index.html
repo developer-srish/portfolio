@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Srish Ghosh — Python Developer & AI/ML Learner</title>
+<meta name="description" content="Portfolio of Srish Ghosh, Python Developer and AI/ML learner from West Bengal, India.">
+<meta name="theme-color" content="#FAF6EC">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Srish Ghosh — Python Developer & AI/ML Learner">
+<meta property="og:description" content="3D portfolio with projects, an ML playground.">
+<meta property="og:image" content="https://github.com/developer-srish.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233B2F1E'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23E8C872' font-family='Georgia' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="manifest" id="manifestLink">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ 1. THEME TOKENS ============ */
+:root{
+  --cream:#FAF6EC;--ivory:#FFFDF7;--gold:#D4AF37;--gold2:#E8C872;--text:#3B2F1E;--muted:#7a6a52;
+  --bg:var(--cream);--card:rgba(255,253,247,.72);--border:rgba(212,175,55,.45);--shadow:0 10px 30px rgba(59,47,30,.12);
+  --glow:0 0 24px rgba(212,175,55,.45);--nav:rgba(255,253,247,.75);
+  --ff-h:'Cormorant Garamond','Playfair Display',Georgia,serif;--ff-b:'Inter',Poppins,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);--navh:64px;
+}
+[data-theme=dark]{
+  --bg:#1a130c;--card:rgba(44,33,22,.7);--text:#f3e9d2;--muted:#bba98a;--ivory:#2a2016;--cream:#1a130c;
+  --border:rgba(232,200,114,.4);--shadow:0 10px 30px rgba(0,0,0,.5);--nav:rgba(32,24,16,.75);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--ff-b);background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;transition:background .4s,color .4s;min-height:100vh}
+h1,h2,h3,h4{font-family:var(--ff-h);line-height:1.15}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:#222;padding:8px 14px;z-index:9999;border-radius:8px}
+.skip:focus{left:8px}
+/* ============ 2. LAYOUT & COMPONENTS ============ */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:1200;box-shadow:var(--glow)}
+nav{position:fixed;top:0;left:0;right:0;height:var(--navh);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,40px);background:var(--nav);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--ff-h);font-weight:700;font-size:1.5rem;text-decoration:none;color:var(--gold)}
+.logo span{color:var(--text)}
+.links{display:flex;gap:4px;list-style:none;align-items:center}
+.links a{text-decoration:none;padding:8px 13px;border-radius:999px;font-size:.92rem;font-weight:500;transition:.3s var(--ease);position:relative}
+.links a:hover{background:rgba(212,175,55,.18)}
+.links a.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#2b2113;box-shadow:var(--glow)}
+.tools{display:flex;gap:8px;align-items:center}
+.ibtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--card);display:grid;place-items:center;transition:.3s var(--ease)}
+.ibtn:hover{transform:translateY(-2px);box-shadow:var(--glow)}
+#burger{display:none}
+main{position:relative;z-index:2;padding-top:var(--navh)}
+.page{display:none;min-height:calc(100vh - var(--navh));padding:clamp(28px,6vw,70px) clamp(16px,5vw,60px) 90px;max-width:1240px;margin:auto}
+.page.active{display:block;animation:pageIn .7s var(--ease)}
+@keyframes pageIn{from{opacity:0;transform:translateY(30px) scale(.98);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+h2.t{font-size:clamp(2rem,5vw,3.2rem);margin-bottom:8px}
+h2.t::after{content:"";display:block;width:70px;height:3px;margin-top:10px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:3px}
+.sub{color:var(--muted);margin-bottom:28px;max-width:60ch}
+.card{background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow);transition:transform .35s var(--ease),box-shadow .35s}
+.card:hover{box-shadow:var(--shadow),var(--glow)}
+.tilt{transform-style:preserve-3d;will-change:transform}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;border:1px solid var(--gold);background:transparent;text-decoration:none;font-weight:600;font-size:.95rem;transition:.3s var(--ease)}
+.btn.pri{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#2b2113;border-color:transparent}
+.btn:hover{transform:translateY(-3px);box-shadow:var(--glow)}
+.chip{display:inline-block;padding:3px 11px;border-radius:999px;font-size:.76rem;border:1px solid var(--border);background:rgba(212,175,55,.12);margin:2px 3px 2px 0}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+input,select,textarea{font:inherit;color:var(--text);background:var(--ivory);border:1px solid var(--border);border-radius:12px;padding:11px 14px;width:100%;transition:.3s}
+input:focus,select:focus,textarea:focus{box-shadow:var(--glow);outline:none;border-color:var(--gold)}
+.bar{height:10px;border-radius:99px;background:rgba(212,175,55,.2);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:99px;transition:width 1.4s var(--ease)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.tab{padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:var(--card)}
+.tab.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#2b2113;font-weight:600}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+/* HOME */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:center;min-height:62vh}
+.hero h1{font-size:clamp(2.6rem,7vw,5rem)}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.typed{font-size:clamp(1.1rem,2.6vw,1.6rem);min-height:2em;color:var(--muted);margin:10px 0 22px}
+.typed::after{content:"|";color:var(--gold);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.scene{perspective:900px;height:min(380px,70vw);display:grid;place-items:center}
+.cube{width:150px;height:150px;position:relative;transform-style:preserve-3d;transition:transform .15s linear}
+.cube div{position:absolute;inset:0;border:2px solid var(--gold);background:rgba(232,200,114,.16);backdrop-filter:blur(3px);display:grid;place-items:center;font-family:var(--ff-h);font-size:2.2rem;color:var(--gold);box-shadow:inset 0 0 30px rgba(212,175,55,.35)}
+.cube .f1{transform:translateZ(75px)}.cube .f2{transform:rotateY(180deg) translateZ(75px)}.cube .f3{transform:rotateY(90deg) translateZ(75px)}.cube .f4{transform:rotateY(-90deg) translateZ(75px)}.cube .f5{transform:rotateX(90deg) translateZ(75px)}.cube .f6{transform:rotateX(-90deg) translateZ(75px)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:40px}
+.stat{text-align:center}.stat b{font-family:var(--ff-h);font-size:2.6rem;color:var(--gold);display:block}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:var(--card);font-size:.85rem}
+.badge::before{content:"";width:9px;height:9px;border-radius:50%;background:#3fbf6b;box-shadow:0 0 0 0 #3fbf6b;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px transparent}}
+/* ABOUT */
+.two{display:grid;grid-template-columns:1fr 1.4fr;gap:26px}
+.avatar{aspect-ratio:1;border-radius:24px;display:grid;place-items:center;font-family:var(--ff-h);font-size:6rem;color:#2b2113;background:linear-gradient(135deg,var(--gold),var(--gold2));overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.timeline{border-left:2px solid var(--border);padding-left:20px;margin-top:10px}
+.timeline .it{position:relative;margin-bottom:18px}
+.timeline .it::before{content:"";position:absolute;left:-28px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:var(--glow)}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip>div{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s var(--ease)}
+.flip.on>div{transform:rotateY(180deg)}
+.flip .fc{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;border:1px solid var(--border);background:var(--card);display:grid;place-items:center;text-align:center;padding:16px}
+.flip .bk{transform:rotateY(180deg);background:linear-gradient(135deg,rgba(212,175,55,.3),rgba(232,200,114,.15))}
+/* SKILLS */
+.meters{display:grid;gap:14px}
+.radial{display:flex;gap:16px;flex-wrap:wrap}
+.radial .r{width:110px;text-align:center;font-size:.85rem}
+.radial svg{width:90px;height:90px;transform:rotate(-90deg)}
+.radial circle{fill:none;stroke-width:9}
+.radial .bgc{stroke:rgba(212,175,55,.2)}.radial .fg{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:251;stroke-dashoffset:251;transition:stroke-dashoffset 1.5s var(--ease)}
+#cloud{position:relative;height:340px;perspective:700px;margin:20px auto;max-width:520px;cursor:grab;touch-action:pan-y}
+#cloud span{position:absolute;left:50%;top:50%;font-family:var(--ff-h);font-weight:700;color:var(--gold);white-space:nowrap;will-change:transform,opacity;user-select:none}
+.lab canvas{width:100%;height:340px;border-radius:14px;background:var(--ivory);border:1px solid var(--border);touch-action:none;cursor:crosshair;display:block}
+/* PROJECTS */
+.proj{cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.proj h3{font-size:1.5rem}
+.star{color:var(--gold)}
+dialog,.modal{border:none}
+.overlay{position:fixed;inset:0;background:rgba(20,14,6,.65);backdrop-filter:blur(6px);z-index:2000;display:none;place-items:center;padding:16px}
+.overlay.on{display:grid;animation:fade .3s}
+@keyframes fade{from{opacity:0}}
+.modal{background:var(--ivory);color:var(--text);border:1px solid var(--gold);border-radius:22px;padding:28px;max-width:640px;width:100%;max-height:88vh;overflow:auto;box-shadow:var(--glow);position:relative}
+.modal .x{position:absolute;right:14px;top:14px}
+.shot{aspect-ratio:16/9;border-radius:14px;border:2px dashed var(--border);display:grid;place-items:center;color:var(--muted);margin:12px 0}
+/* GITHUB */
+.sk{background:linear-gradient(90deg,rgba(212,175,55,.12),rgba(212,175,55,.3),rgba(212,175,55,.12));background-size:200% 100%;animation:sh 1.2s infinite;border-radius:14px;height:130px}
+@keyframes sh{to{background-position:-200% 0}}
+.ghhead{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.ghhead img{width:96px;height:96px;border-radius:50%;border:3px solid var(--gold)}
+.donutwrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px;margin-right:12px;font-size:.85rem}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+#heat{width:100%;border-radius:10px;background:#fff;padding:8px}
+/* CERTS */
+.cert{text-align:center;cursor:pointer}
+.medal{width:74px;height:74px;margin:0 auto 12px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff3c4,var(--gold));display:grid;place-items:center;font-size:2rem;box-shadow:var(--glow)}
+/* CAROUSEL */
+.car{overflow:hidden;border-radius:18px;touch-action:pan-y}
+.track{display:flex;transition:transform .7s var(--ease)}
+.slide{min-width:100%;padding:10px}
+.slide blockquote{font-family:var(--ff-h);font-size:1.4rem}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.dots button{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold);background:transparent;padding:0}
+.dots button.on{background:var(--gold)}
+/* CONTACT — digital card + portfolio guide */
+.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+.digital-card{position:relative;overflow:hidden;background:linear-gradient(145deg,var(--ivory),rgba(232,200,114,.2));}
+.digital-card:before{content:"";position:absolute;width:220px;height:220px;border:1px solid var(--border);border-radius:50%;right:-90px;top:-100px;box-shadow:0 0 0 18px rgba(212,175,55,.05),0 0 0 38px rgba(212,175,55,.04);pointer-events:none}
+.sg-mark{width:72px;height:72px;display:grid;place-items:center;border-radius:22px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#2b2113;font:700 2.1rem var(--ff-h);box-shadow:var(--glow);flex-shrink:0}
+.digital-head{display:flex;align-items:center;gap:16px;position:relative}.digital-head h3{font-size:1.8rem}.digital-role{color:var(--muted);font-size:.92rem}
+.qr-wrap{display:flex;align-items:center;gap:16px;margin:20px 0;padding:14px;border:1px dashed var(--border);border-radius:16px;background:var(--card)}
+.qr-wrap img{width:108px;height:108px;border-radius:8px;background:#fff;padding:5px;flex-shrink:0}.qr-note{font-size:.88rem;color:var(--muted)}
+.ai-panel{display:flex;flex-direction:column;min-height:450px}.ai-title{display:flex;align-items:center;gap:12px;margin-bottom:8px}.bot-icon{width:44px;height:44px;border-radius:15px;background:rgba(212,175,55,.2);display:grid;place-items:center;font-size:1.6rem;border:1px solid var(--border)}
+.ai-status{font-size:.78rem;color:var(--muted)}.chat-log{display:flex;flex-direction:column;gap:10px;min-height:205px;max-height:280px;overflow:auto;padding:12px 2px;margin:8px 0}
+.chat-msg{max-width:92%;padding:11px 13px;border-radius:14px;font-size:.9rem;white-space:pre-wrap;overflow-wrap:anywhere}.chat-msg.bot{align-self:flex-start;background:var(--ivory);border:1px solid var(--border);border-bottom-left-radius:4px}.chat-msg.user{align-self:flex-end;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#2b2113;border-bottom-right-radius:4px}
+.quick-asks{display:flex;gap:7px;flex-wrap:wrap;margin:3px 0 12px}.quick-asks button{font-size:.78rem;padding:6px 10px;border:1px solid var(--border);border-radius:99px;background:var(--card)}.quick-asks button:hover{background:rgba(212,175,55,.2)}
+.ai-form{display:flex;gap:8px;margin-top:auto}.ai-form input{min-width:0}.ai-form .btn{padding:10px 15px;flex-shrink:0}.ai-footnote{font-size:.76rem;color:var(--muted);margin-top:8px}
+.err{color:#c0392b;font-size:.8rem;min-height:1em}
+.soc{display:flex;gap:12px;flex-wrap:wrap}
+.soc a{width:46px;height:46px}
+.soc svg,.ibtn svg{width:20px;height:20px;fill:currentColor}
+#top{position:fixed;right:14px;bottom:14px;z-index:1100;opacity:0;pointer-events:none;transition:.3s}
+#top.show{opacity:1;pointer-events:auto}
+#toasts{position:fixed;top:78px;right:14px;z-index:3000;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--ivory);border:1px solid var(--gold);padding:10px 16px;border-radius:12px;box-shadow:var(--shadow);animation:pageIn .4s var(--ease)}
+/* CURSOR */
+#cur,#cur2{position:fixed;left:0;top:0;pointer-events:none;z-index:5000;border-radius:50%;display:none}
+#cur{width:10px;height:10px;background:var(--gold);box-shadow:0 0 14px var(--gold)}
+#cur2{width:34px;height:34px;border:1.5px solid var(--gold2);opacity:.7}
+@media (hover:hover) and (pointer:fine){#cur,#cur2{display:block}body.hascur,body.hascur a,body.hascur button{cursor:none}}
+/* PALETTE */
+#pal .modal{padding:14px;max-width:560px}
+#pal ul{list-style:none;margin-top:10px;max-height:50vh;overflow:auto}
+#pal li{padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between}
+#pal li.sel,#pal li:hover{background:rgba(212,175,55,.22)}
+kbd{border:1px solid var(--border);border-radius:5px;padding:0 6px;font-size:.75rem}
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:grid;place-items:center;transition:opacity .6s,visibility .6s}
+#loader.off{opacity:0;visibility:hidden}
+#loader svg{width:120px;height:140px}
+#loader .part{opacity:0;animation:asm .6s var(--ease) forwards}
+@keyframes asm{from{opacity:0;transform:translateY(-40px) rotate(-10deg)}to{opacity:1;transform:none}}
+#loader p{font-family:var(--ff-h);font-size:1.4rem;color:var(--gold);text-align:center;margin-top:10px}
+
+/* OFFLINE PORTFOLIO ROBOT */
+.bot-bounce{position:relative;animation:robotFloat 3s ease-in-out infinite;overflow:visible}
+.robot-face{display:block;animation:robotBlink 5s infinite}
+.robot-spark{position:absolute;right:-5px;top:-7px;font-style:normal;color:var(--gold);font-size:1rem;animation:sparkSpin 4s linear infinite}
+@keyframes robotFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+@keyframes robotBlink{0%,46%,50%,100%{filter:none}48%{filter:brightness(.65)}}
+@keyframes sparkSpin{to{transform:rotate(360deg)}}
+.question-cloud-label{font-size:.76rem;color:var(--muted);margin:10px 0 5px}
+.question-cloud{gap:8px;align-items:center}
+.question-cloud button{animation:chipFloat 4s ease-in-out infinite;transition:transform .2s,background .2s,box-shadow .2s}
+.question-cloud button:nth-child(2n){animation-delay:-1.3s}.question-cloud button:nth-child(3n){animation-delay:-2.2s}
+.question-cloud button:hover,.question-cloud button:focus-visible{transform:translateY(-3px) scale(1.03);box-shadow:var(--glow);outline:none}
+@keyframes chipFloat{0%,100%{translate:0 0}50%{translate:0 -3px}}
+.dev-mode{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.78rem;font-weight:700;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:rgba(212,175,55,.08)}
+.dev-pill{font-size:.64rem;letter-spacing:.06em;color:var(--muted);border:1px solid var(--border);padding:4px 7px;border-radius:99px}
+.voice-btn{padding:9px 12px;flex-shrink:0}.voice-tools{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:8px}
+.voice-link{font-size:.78rem;color:var(--muted);background:transparent;border:0;padding:5px 0;cursor:pointer}.voice-link:hover{color:var(--gold)}
+.chat-msg.bot{line-height:1.55}.chat-msg.bot a{color:inherit;text-decoration:underline}
+@media(prefers-reduced-motion:reduce){.bot-bounce,.robot-face,.robot-spark,.question-cloud button{animation:none!important}}
+
+/* RESUME / PRINT */
+#resume{display:none}
+.nf{text-align:center;padding:60px 0}
+footer{position:relative;z-index:2;text-align:center;padding:30px 16px 60px;color:var(--muted);font-size:.85rem}
+@media(max-width:860px){
+  .hero,.two,.contact-grid{grid-template-columns:1fr}
+  #burger{display:grid}
+  .links{position:fixed;top:var(--navh);left:0;right:0;flex-direction:column;background:var(--nav);backdrop-filter:blur(16px);padding:12px;border-bottom:1px solid var(--border);transform:translateY(-130%);transition:transform .4s var(--ease);align-items:stretch;text-align:center}
+  .links.open{transform:none}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* PHONE VIEW (forced) */
+body.phone-view{max-width:420px;margin:0 auto;box-shadow:0 0 0 1px var(--border),0 0 60px rgba(0,0,0,.25);position:relative}
+body.phone-view nav{max-width:420px;left:50%;right:auto;width:100%;transform:translateX(-50%)}
+body.phone-view .hero,body.phone-view .two{grid-template-columns:1fr!important}
+body.phone-view #burger{display:grid}
+body.phone-view .links{position:fixed;top:var(--navh);left:50%;width:100%;max-width:420px;right:auto;flex-direction:column;background:var(--nav);backdrop-filter:blur(16px);padding:12px;border-bottom:1px solid var(--border);transform:translate(-50%,-130%);transition:transform .4s var(--ease);align-items:stretch;text-align:center}
+body.phone-view .links.open{transform:translate(-50%,0)}
+body.phone-view #top{right:calc(50% - 196px)}
+html:has(body.phone-view){background:#0e0a05}
+@media print{
+  body>*:not(#resume){display:none!important}
+  #resume{display:block!important;color:#000;background:#fff;padding:20px;font-family:Georgia,serif}
+  #resume h1{font-size:28pt}#resume h2{font-size:14pt;border-bottom:1px solid #999;margin:14px 0 6px}
+  #resume li{margin-left:18px}
+}
+</style>
+</head>
+<body class="hascur">
+<a class="skip" href="#main">Skip to content</a>
+<div id="loader" role="status" aria-label="Loading">
+  <div>
+    <svg viewBox="0 0 120 140" aria-hidden="true">
+      <g class="part" style="animation-delay:.1s"><line x1="60" y1="8" x2="60" y2="24" stroke="#D4AF37" stroke-width="4"/><circle cx="60" cy="8" r="6" fill="#E8C872"/></g>
+      <g class="part" style="animation-delay:.4s"><rect x="25" y="24" width="70" height="46" rx="14" fill="#E8C872" stroke="#D4AF37" stroke-width="3"/><circle cx="45" cy="47" r="7" fill="#3B2F1E"/><circle cx="75" cy="47" r="7" fill="#3B2F1E"/></g>
+      <g class="part" style="animation-delay:.8s"><rect x="32" y="76" width="56" height="40" rx="10" fill="#D4AF37"/><circle cx="60" cy="96" r="7" fill="#FFFDF7"/></g>
+      <g class="part" style="animation-delay:1.1s"><rect x="14" y="80" width="14" height="30" rx="7" fill="#E8C872"/><rect x="92" y="80" width="14" height="30" rx="7" fill="#E8C872"/></g>
+      <g class="part" style="animation-delay:1.4s"><rect x="38" y="118" width="16" height="16" rx="5" fill="#3B2F1E"/><rect x="66" y="118" width="16" height="16" rx="5" fill="#3B2F1E"/></g>
+    </svg>
+    <p>Assembling portfolio…</p>
+  </div>
+</div>
+<div id="progress"></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div id="cur"></div><div id="cur2"></div>
+
+<nav aria-label="Main">
+  <a class="logo" href="#/home">S<span>rish</span></a>
+  <ul class="links" id="links"></ul>
+  <div class="tools">
+    <button class="ibtn" id="kBtn" aria-label="Open command palette (Ctrl+K)" title="Command palette">⌘</button>
+    <button class="ibtn" id="soundBtn" aria-label="Toggle sounds" aria-pressed="false" title="Sounds (off)">🔇</button>
+    <button class="ibtn" id="viewBtn" aria-label="Switch between desktop and phone view" title="Desktop / phone view">📱</button>
+    <button class="ibtn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme (T)">🌙</button>
+    <button class="ibtn" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+<!-- HOME -->
+<section class="page" id="page-home" aria-label="Home">
+  <div class="hero">
+    <div>
+      <span class="badge" id="avail"></span>
+      <h1 style="margin-top:14px">Hi, I'm <em id="hName"></em></h1>
+      <p class="typed" id="typed" aria-live="off"></p>
+      <p class="sub" id="hBio"></p>
+      <div class="row">
+        <a class="btn pri" href="#/projects">View Projects</a>
+        <a class="btn" href="#/contact">Contact Me</a>
+        <button class="btn" id="shareBtn">Share ↗</button>
+      </div>
+    </div>
+    <div class="scene" id="scene"><div class="cube" id="cube"><div class="f1">Py</div><div class="f2">AI</div><div class="f3">ML</div><div class="f4">{ }</div><div class="f5">∑</div><div class="f6">λ</div></div></div>
+  </div>
+  <div class="stats" id="stats"></div>
+</section>
+
+<!-- ABOUT -->
+<section class="page" id="page-about" aria-label="About">
+  <h2 class="t">About Me</h2>
+  <div class="two">
+    <div><div class="avatar card tilt" id="avatar" aria-label="Avatar placeholder">SG</div></div>
+    <div>
+      <div class="card" id="aboutBio"></div>
+      <div class="grid" style="margin-top:20px" id="highlights"></div>
+    </div>
+  </div>
+  <div class="two" style="margin-top:26px;grid-template-columns:1fr 1fr">
+    <div class="card"><h3>Education & Journey</h3><div class="timeline" id="timeline"></div></div>
+    <div class="card"><h3>Currently Learning</h3><div class="meters" id="learning" style="margin-top:14px"></div></div>
+  </div>
+  <h3 style="margin:30px 0 14px;font-size:1.8rem">Fun Facts <small style="font-family:var(--ff-b);font-size:.8rem;color:var(--muted)">(tap to flip)</small></h3>
+  <div class="grid" id="facts"></div>
+</section>
+
+<!-- SKILLS -->
+<section class="page" id="page-skills" aria-label="Skills">
+  <h2 class="t">Skills</h2>
+  <p class="sub">Tools I use to build, learn and ship.</p>
+  <div class="tabs" id="skTabs" role="tablist"></div>
+  <div class="two" style="grid-template-columns:1fr 1fr">
+    <div class="card"><div class="radial" id="radials"></div><div class="meters" id="bars" style="margin-top:20px"></div></div>
+    <div class="card"><h3>Skill Cloud</h3><div id="cloud" aria-label="3D rotating skill cloud"></div></div>
+  </div>
+  <div class="card lab" style="margin-top:26px" id="lab">
+    <h3>🤖 Robot Lab — Linear Regression Playground</h3>
+    <p class="sub" style="margin-bottom:12px">Click the canvas to place points, then press Train. The line learns with gradient descent.</p>
+    <canvas id="labCv" width="800" height="340" aria-label="Interactive regression canvas"></canvas>
+    <div class="row" style="margin-top:12px">
+      <button class="btn pri" id="labTrain">▶ Train</button>
+      <button class="btn" id="labRand">Random data</button>
+      <button class="btn" id="labClear">Clear</button>
+      <span>Loss (MSE): <b id="labLoss">–</b></span><span>Epoch: <b id="labEp">0</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="page" id="page-projects" aria-label="Projects">
+  <h2 class="t">Projects</h2>
+  <div class="row" style="margin-bottom:18px">
+    <div style="flex:2;min-width:200px"><label class="sr" for="pSearch">Search projects</label><input id="pSearch" type="search" placeholder="Search projects or tags…"></div>
+    <div style="flex:1;min-width:140px"><label class="sr" for="pSort">Sort</label><select id="pSort"><option value="featured">Featured first</option><option value="newest">Newest first</option></select></div>
+  </div>
+  <div class="tabs" id="pTags"></div>
+  <div class="grid" id="pGrid"></div>
+</section>
+
+<!-- GITHUB -->
+<section class="page" id="page-github" aria-label="GitHub">
+  <h2 class="t">GitHub</h2>
+  <div class="card ghhead" id="ghHead"><div class="sk" style="width:100%"></div></div>
+  <div class="two" style="grid-template-columns:1fr 1fr;margin-top:20px">
+    <div class="card"><h3>Languages</h3><div class="donutwrap" id="donut"></div></div>
+    <div class="card"><h3>Contributions</h3><img id="heat" alt="GitHub contribution heatmap" loading="lazy"><p id="heatFb" class="sub" style="display:none"></p></div>
+  </div>
+  <div class="row" style="margin:22px 0">
+    <div style="flex:2;min-width:180px"><label class="sr" for="rSearch">Search repos</label><input id="rSearch" type="search" placeholder="Search repos…"></div>
+    <div style="flex:1;min-width:130px"><label class="sr" for="rLang">Language</label><select id="rLang"><option value="">All languages</option></select></div>
+    <div style="flex:1;min-width:130px"><label class="sr" for="rSort">Sort</label><select id="rSort"><option value="updated">Recently updated</option><option value="stars">Most stars</option><option value="name">Name</option></select></div>
+  </div>
+  <div class="grid" id="repos"></div>
+</section>
+
+<!-- CERTS + TESTIMONIALS -->
+<section class="page" id="page-achievements" aria-label="Achievements">
+  <h2 class="t">Certificates & Achievements</h2>
+  <div class="grid" id="certs" style="margin-bottom:40px"></div>
+  <h2 class="t">Recommendations</h2>
+  <div class="card"><div class="car" id="car"><div class="track" id="track"></div></div><div class="dots" id="dots"></div></div>
+</section>
+
+<!-- CONTACT -->
+<section class="page" id="page-contact" aria-label="Contact">
+  <h2 class="t">Connect With Me</h2>
+  <p class="sub">Save my developer card, scan the QR code, or ask my portfolio guide about my skills and projects.</p>
+  <div class="contact-grid">
+    <article class="card digital-card">
+      <div class="digital-head"><div class="sg-mark" aria-label="SG monogram">SG</div><div><h3>Srish Ghosh</h3><p class="digital-role">Python Developer &amp; AI/ML Learner</p><p class="digital-role">📍 Malda, West Bengal, India</p></div></div>
+      <p style="margin-top:18px;color:var(--muted)">Building useful Python tools, creative websites, and exploring machine learning one project at a time.</p>
+      <div class="qr-wrap"><img id="profileQr" alt="QR code linking to Srish Ghosh's portfolio"><div><b>Take my portfolio with you</b><p class="qr-note">Scan this code to open my portfolio and explore my work.</p></div></div>
+      <div class="row"><button class="btn pri" id="saveVcard" type="button">↓ Save Contact Card</button><button class="btn" id="copyProfile" type="button">Copy Profile Link</button></div>
+      <div class="soc" id="soc" style="margin-top:18px"></div>
+      <div class="row" style="margin-top:16px"><button class="btn" id="copyMail" type="button">Copy email</button><button class="btn" id="resumeBtn" type="button">Download Resume</button></div>
+    </article>
+    <article class="card ai-panel">
+      <div class="ai-title"><div class="bot-icon bot-bounce" id="aiRobot" aria-hidden="true"><span class="robot-face">🤖</span><i class="robot-spark">✦</i></div><div><h3 style="font-size:1.65rem">Ask My Portfolio AI</h3><p class="ai-status" id="aiStatus">● Offline smart assistant · Ready to help</p></div></div>
+      <p style="color:var(--muted);font-size:.9rem">Meet my mini developer robot! Ask about me, my projects, or basic coding topics.</p>
+      <div class="question-cloud-label">✨ Tap a floating question to try it</div>
+      <div class="quick-asks question-cloud" id="quickAsks"><button type="button" data-q="Who is Srish Ghosh?">👋 Who am I?</button><button type="button" data-q="What skills do you know?">🧰 My skills</button><button type="button" data-q="Tell me about FaceCore">🧠 FaceCore</button><button type="button" data-q="What projects have you built?">🚀 Projects</button><button type="button" data-q="Explain Python in simple words">🐍 Python help</button><button type="button" data-q="What is machine learning?">🤖 What is ML?</button><button type="button" data-q="Show my GitHub">💻 GitHub</button><button type="button" data-q="How can I contact you?">✉️ Contact</button><button type="button" data-q="What are you learning now?">📚 Learning</button><button type="button" data-q="What can you answer?">💡 All questions</button></div>
+      <div class="dev-mode"><span>⌘ Developer mode</span><span class="dev-pill">OFFLINE · NO API KEY</span></div>
+      <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-label="Portfolio guide conversation"><div class="chat-msg bot">Hi! 👋 I'm Srish's offline portfolio robot. I know the details configured in this portfolio and can help with common beginner coding questions. Tap a question bubble or type your own!</div></div>
+      <form class="ai-form" id="aiForm"><label class="sr" for="aiQuestion">Ask a question</label><input id="aiQuestion" placeholder="Ask me anything about Srish or coding…" autocomplete="off" maxlength="240" required><button class="btn pri" type="submit">Ask ↗</button><button class="btn voice-btn" id="voiceBtn" type="button" aria-label="Ask by voice" title="Ask by voice">🎙️</button></form>
+      <div class="voice-tools"><button type="button" class="voice-link" id="speakToggle" aria-pressed="false">🔊 Read answers aloud: Off</button><button type="button" class="voice-link" id="clearChat">↺ Clear chat</button></div>
+      <p class="ai-footnote">Runs in your browser with predefined profile knowledge and simple coding rules. No API key or server needed. It is not a full generative AI and may not know every question. Voice features depend on browser support.</p>
+    </article>
+  </div>
+</section>
+
+<section class="page" id="page-404" aria-label="Not found"><div class="nf"><h2 class="t" style="display:inline-block">404 — Robot got lost 🤖</h2><p class="sub" style="margin:auto auto 20px">This page doesn't exist (yet).</p><a class="btn pri" href="#/home">Back home</a></div></section>
+</main>
+<footer id="foot"></footer>
+
+<button class="ibtn" id="top" aria-label="Back to top">↑</button>
+<div id="toasts" role="status" aria-live="polite"></div>
+
+<div class="overlay" id="pal" role="dialog" aria-modal="true" aria-label="Command palette"><div class="modal"><input id="palIn" placeholder="Type a command or search… (Esc to close)" aria-label="Search commands"><ul id="palList"></ul></div></div>
+<div class="overlay" id="modalO" role="dialog" aria-modal="true"><div class="modal" id="modal"></div></div>
+<div class="overlay" id="lightO" role="dialog" aria-modal="true"><div class="modal" id="light" style="text-align:center"></div></div>
+<div id="resume"></div>
+
+<script>
+"use strict";
+/* ================================================================
+   0. CONFIG — edit everything here
+   ================================================================ */
+const CONFIG={
+  name:"Srish Ghosh",
+  role:"Python Developer & AI/ML Learner",
+  github:"developer-srish",
+  email:"mymailpersonal.63@gmail.com",
+  location:"Malda, West Bengal, India",
+  available:"Open to internships & freelance",
+  bio:"I'm a Python developer who loves building useful things — from face-recognition systems to clean websites for local businesses. Right now I'm diving deep into machine learning and AI, one experiment at a time.",
+  taglines:["Python Developer","AI / ML Learner","Web Builder for Local Businesses","Curious Problem Solver"],
+  stats:[{l:"Projects",v:12},{l:"Repositories",v:20},{l:"Commits",v:600},{l:"Learning Hours",v:900}],
+  highlights:[{t:"Python First",d:"Scripts, apps and automation."},{t:"AI/ML Curious",d:"Models, data and experiments."},{t:"Client Ready",d:"Websites for real local businesses."}],
+  timeline:[
+    {y:"2023",t:"Started programming",d:"Python fundamentals & problem solving."},
+    {y:"2024",t:"Web development",d:"HTML, CSS, JS and first client sites."},
+    {y:"2025",t:"Computer vision",d:"Built a face-recognition attendance system."},
+    {y:"Now",t:"AI/ML deep dive",d:"PyTorch, scikit-learn and LLMs."}],
+  learning:[{n:"PyTorch",p:55},{n:"scikit-learn",p:70},{n:"LLMs & Prompting",p:60},{n:"Data Structures",p:75}],
+  facts:[{q:"Fuel?",a:"Tea and late-night debugging ☕"},{q:"First language?",a:"Python, still my favourite 🐍"},{q:"Favourite build?",a:"Anything with a robot in it 🤖"},{q:"Hometown vibe?",a:"Malda — mangoes and code 🥭"}],
+  skills:{
+    Languages:[{n:"Python",p:90},{n:"JavaScript",p:75},{n:"HTML/CSS",p:88},{n:"SQL",p:60}],
+    "AI/ML":[{n:"OpenCV",p:75},{n:"DeepFace",p:70},{n:"scikit-learn",p:65},{n:"PyTorch",p:50}],
+    Web:[{n:"Responsive UI",p:90},{n:"Canvas/SVG",p:72},{n:"Flask",p:60},{n:"GitHub Pages",p:85}],
+    Tools:[{n:"Git/GitHub",p:82},{n:"VS Code",p:90},{n:"Tkinter",p:75},{n:"Linux",p:60}]},
+  projects:[
+    {id:"face",title:"Face Attendance System",date:"2025-06-01",featured:true,tags:["Python","AI/ML"],desc:"Face-recognition attendance with DeepFace, OpenCV and a Tkinter UI.",features:["Real-time face detection","Automatic attendance log","Tkinter desktop interface"],stack:["Python","DeepFace","OpenCV","Tkinter"],live:"",code:"https://github.com/developer-srish"},
+    {id:"hand",title:"Multiplayer Hand Cricket",date:"2025-03-10",featured:true,tags:["Python","Game"],desc:"Hand cricket over raw TCP sockets.",features:["Raw socket networking","Turn-based game logic","LAN multiplayer"],stack:["Python","Sockets"],live:"",code:"https://github.com/developer-srish"},
+    {id:"ghee",title:"Gold Ghee Web App",date:"2025-09-01",featured:false,tags:["Web","Client"],desc:"Mobile web app for a family ghee brand.",features:["Mobile-first design","Product showcase","Easy contact"],stack:["HTML","CSS","JS"],live:"",code:"https://github.com/developer-srish"},
+    {id:"shoe",title:"Footwear Business Site",date:"2025-10-01",featured:false,tags:["Web","Client"],desc:"Multi-page mobile site plus owner card for a family footwear shop.",features:["Multi-page layout","Owner digital card","Mobile optimised"],stack:["HTML","CSS","JS"],live:"",code:"https://github.com/developer-srish"},
+    {id:"arjun",title:"Portfolio — Arjun",date:"2026-01-15",featured:true,tags:["Web","Animation"],desc:"Portfolio with scroll-driven canvas animation.",features:["Scroll-driven frames","Smooth easing","Responsive"],stack:["Canvas","JS","CSS"],live:"",code:"https://github.com/developer-srish"}],
+  certificates:[
+    {t:"Python Programming",o:"Add issuer",y:"2024",img:""},{t:"Machine Learning Basics",o:"Add issuer",y:"2025",img:""},{t:"Web Development",o:"Add issuer",y:"2024",img:""}],
+  testimonials:[
+    {q:"Srish delivered a clean, fast website that our customers love.",n:"Local business owner",r:"Client"},
+    {q:"A quick learner who turns ideas into working software.",n:"Mentor / Peer",r:"Colleague"},
+    {q:"Reliable, creative and always keeps improving.",n:"Friend & collaborator",r:"Peer"}],
+  pinned:[], // e.g. ["repo-name-1","repo-name-2"]
+  links:{GitHub:"https://github.com/developer-srish",LinkedIn:"https://www.linkedin.com/",Email:"mailto:mymailpersonal.63@gmail.com"},
+  resume:{summary:"Python developer and AI/ML learner building practical software and websites.",skills:["Python","JavaScript","HTML/CSS","OpenCV","DeepFace","scikit-learn","Git"],education:["Self-driven learning in Python, web development and AI/ML"],experience:["Freelance web developer — websites for local businesses","Built face-recognition attendance system"]}
+};
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const touch=matchMedia("(hover:none)").matches;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store={get(k,s){try{return(s?sessionStorage:localStorage).getItem(k)}catch(e){return null}},set(k,v,s){try{(s?sessionStorage:localStorage).setItem(k,v)}catch(e){}}};
+
+/* ================================================================
+   1. UTILITIES: toast, sound, modals
+   ================================================================ */
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;$("#toasts").append(t);setTimeout(()=>t.remove(),2600)}
+let soundOn=false,actx;
+function beep(f=660,d=.08){if(!soundOn)return;try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="sine";g.gain.value=.04;o.connect(g);g.connect(actx.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+d);o.stop(actx.currentTime+d)}catch(e){}}
+$("#soundBtn").onclick=e=>{soundOn=!soundOn;e.currentTarget.textContent=soundOn?"🔊":"🔇";e.currentTarget.setAttribute("aria-pressed",soundOn);e.currentTarget.title="Sounds ("+(soundOn?"on":"off")+")";beep(880);toast("Sounds "+(soundOn?"on":"off"))};
+document.addEventListener("click",e=>{if(e.target.closest("button,a"))beep(520,.05)});
+function openO(el){el.classList.add("on");el._prev=document.activeElement;const f=el.querySelector("input,button,a");f&&f.focus()}
+function closeO(el){el.classList.remove("on");el._prev&&el._prev.focus&&el._prev.focus()}
+$$(".overlay").forEach(o=>o.addEventListener("mousedown",e=>{if(e.target===o)closeO(o)}));
+
+/* ================================================================
+   2. THEME
+   ================================================================ */
+function setTheme(t,save){document.documentElement.dataset.theme=t;$("#themeBtn").textContent=t==="dark"?"☀️":"🌙";$('meta[name=theme-color]').content=t==="dark"?"#1a130c":"#FAF6EC";if(save)store.set("theme",t)}
+setTheme(store.get("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
+const toggleTheme=()=>{setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark",true);toast("Theme switched")};
+$("#themeBtn").onclick=toggleTheme;
+
+/* ================================================================
+   3. LOADER, PROGRESS, BACK TO TOP
+   ================================================================ */
+window.addEventListener("load",()=>setTimeout(()=>$("#loader").classList.add("off"),RM?100:2000));
+setTimeout(()=>$("#loader").classList.add("off"),4500);
+addEventListener("scroll",()=>{const h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);$("#progress").style.width=(p*100)+"%";$("#top").classList.toggle("show",h.scrollTop>400)},{passive:true});
+$("#top").onclick=()=>scrollTo({top:0,behavior:RM?"auto":"smooth"});
+
+/* ================================================================
+   4. CURSOR
+   ================================================================ */
+if(!touch){let x=0,y=0,x2=0,y2=0;addEventListener("mousemove",e=>{x=e.clientX;y=e.clientY;$("#cur").style.transform=`translate(${x-5}px,${y-5}px)`},{passive:true});
+(function l(){x2+=(x-x2)*.15;y2+=(y-y2)*.15;$("#cur2").style.transform=`translate(${x2-17}px,${y2-17}px)`;requestAnimationFrame(l)})()}else document.body.classList.remove("hascur");
+
+/* ================================================================
+   5. PARTICLE / NEURAL BACKGROUND
+   ================================================================ */
+(function(){const c=$("#bg"),g=c.getContext("2d");let W,H,P=[],m={x:-999,y:-999};
+function rs(){W=c.width=innerWidth;H=c.height=innerHeight;const n=Math.min(70,Math.floor(W*H/22000));P=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}))}
+rs();addEventListener("resize",rs);addEventListener("pointermove",e=>{m.x=e.clientX;m.y=e.clientY},{passive:true});
+let run=true;document.addEventListener("visibilitychange",()=>{run=!document.hidden;if(run)loop()});
+function loop(){if(!run)return;g.clearRect(0,0,W,H);const col=document.documentElement.dataset.theme==="dark"?"232,200,114":"212,175,55";
+for(const p of P){if(!RM){p.x+=p.vx;p.y+=p.vy}const dx=p.x-m.x,dy=p.y-m.y,d=Math.hypot(dx,dy);if(d<120&&d>0){p.x+=dx/d*1.2;p.y+=dy/d*1.2}
+if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;g.fillStyle=`rgba(${col},.55)`;g.beginPath();g.arc(p.x,p.y,2,0,6.3);g.fill()}
+for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const d=Math.hypot(P[i].x-P[j].x,P[i].y-P[j].y);if(d<120){g.strokeStyle=`rgba(${col},${.18*(1-d/120)})`;g.beginPath();g.moveTo(P[i].x,P[i].y);g.lineTo(P[j].x,P[j].y);g.stroke()}}
+requestAnimationFrame(loop)}loop()})();
+
+/* ================================================================
+   6. NAVIGATION / HASH ROUTER
+   ================================================================ */
+const ROUTES=[["home","Home"],["about","About"],["skills","Skills"],["projects","Projects"],["github","GitHub"],["achievements","Awards"],["contact","Contact"]];
+$("#links").innerHTML=ROUTES.map(([r,l])=>`<li><a href="#/${r}" data-r="${r}">${l}</a></li>`).join("");
+const inited={};
+function route(){let r=(location.hash.replace(/^#\/?/,"")||"home").split("?")[0];if(!ROUTES.some(x=>x[0]===r))r="404";
+  $$(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+r));
+  $$(".links a").forEach(a=>{const on=a.dataset.r===r;a.classList.toggle("active",on);on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+  $("#links").classList.remove("open");$("#burger").setAttribute("aria-expanded","false");
+  scrollTo(0,0);document.title=(r==="404"?"Not found":ROUTES.find(x=>x[0]===r)[1])+" — "+CONFIG.name;
+  if(!inited[r]&&INIT[r]){inited[r]=1;INIT[r]()}
+  observeReveals();$("#main").focus({preventScroll:true});beep(740,.06)}
+addEventListener("hashchange",route);
+$("#burger").onclick=e=>{const o=$("#links").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)};
+const go=r=>location.hash="#/"+r;
+
+/* reveal + tilt helpers */
+let io;function observeReveals(){io=io||new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
+  $$(".page.active .reveal:not(.in)").forEach(el=>io.observe(el))}
+function bindTilt(root=document){$$(".tilt:not([data-t])",root).forEach(el=>{el.dataset.t=1;if(RM||touch)return;
+  el.addEventListener("pointermove",e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(800px) rotateY(${x*12}deg) rotateX(${-y*12}deg) translateY(-6px)`});
+  el.addEventListener("pointerleave",()=>el.style.transform="")})}
+
+/* ================================================================
+   7. SECTION INITIALISERS
+   ================================================================ */
+const INIT={};
+/* HOME */
+function typed(){const el=$("#typed");let i=0,j=0,del=false;(function t(){const w=CONFIG.taglines[i];if(RM){el.textContent=w;return}
+  el.textContent=w.slice(0,j);if(!del&&j===w.length){del=true;return setTimeout(t,1400)}if(del&&j===0){del=false;i=(i+1)%CONFIG.taglines.length}j+=del?-1:1;setTimeout(t,del?35:70)})()}
+function counters(){$$("#stats .stat b").forEach(b=>{const to=+b.dataset.v;let s=null;(function f(ts){s=s||ts;const p=Math.min((ts-s)/1400,1);b.textContent=Math.floor(to*(1-Math.pow(1-p,3)))+(p>=1?"+":"");if(p<1)requestAnimationFrame(f)})(performance.now())})}
+INIT.home=()=>{$("#hName").textContent=CONFIG.name;$("#hBio").textContent=CONFIG.bio;$("#avail").textContent=CONFIG.available;
+  $("#stats").innerHTML=CONFIG.stats.map(s=>`<div class="card stat reveal"><b data-v="${s.v}">0</b>${esc(s.l)}</div>`).join("");
+  typed();counters();
+  const sc=$("#scene"),cube=$("#cube");let rx=-20,ry=30;
+  sc.addEventListener("pointermove",e=>{const r=sc.getBoundingClientRect();ry=((e.clientX-r.left)/r.width-.5)*180;rx=-((e.clientY-r.top)/r.height-.5)*180});
+  (function l(){if(!RM&&!touch&&document.activeElement!==null)ry+=0;cube.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;requestAnimationFrame(l)})();
+  if(!RM)setInterval(()=>{ry+=.4},16);
+  $("#shareBtn").onclick=share};
+async function share(){const d={title:document.title,text:"Check out "+CONFIG.name+"'s portfolio",url:location.href};
+  try{if(navigator.share)await navigator.share(d);else throw 0}catch(e){try{await navigator.clipboard.writeText(location.href);toast("Link copied!")}catch(_){toast("Copy this URL: "+location.href)}}}
+
+/* ABOUT */
+INIT.about=()=>{$("#aboutBio").innerHTML=`<h3>Hello 👋</h3><p>${esc(CONFIG.bio)}</p><p style="margin-top:8px;color:var(--muted)">📍 ${esc(CONFIG.location)}</p>`;
+  $("#highlights").innerHTML=CONFIG.highlights.map(h=>`<div class="card tilt reveal"><h3>${esc(h.t)}</h3><p>${esc(h.d)}</p></div>`).join("");
+  $("#timeline").innerHTML=CONFIG.timeline.map(t=>`<div class="it"><b>${esc(t.y)} · ${esc(t.t)}</b><br><span style="color:var(--muted)">${esc(t.d)}</span></div>`).join("");
+  $("#learning").innerHTML=CONFIG.learning.map(l=>`<div><div class="row" style="justify-content:space-between"><span>${esc(l.n)}</span><span>${l.p}%</span></div><div class="bar" role="progressbar" aria-valuenow="${l.p}" aria-valuemin="0" aria-valuemax="100"><i data-w="${l.p}"></i></div></div>`).join("");
+  setTimeout(()=>$$("#learning i").forEach(i=>i.style.width=i.dataset.w+"%"),100);
+  $("#facts").innerHTML=CONFIG.facts.map(f=>`<div class="flip" tabindex="0" role="button" aria-label="Flip fact card"><div><div class="fc"><h3>${esc(f.q)}</h3></div><div class="fc bk"><p>${esc(f.a)}</p></div></div></div>`).join("");
+  $$(".flip").forEach(f=>{const t=()=>f.classList.toggle("on");f.onclick=t;f.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();t()}}});
+  bindTilt()};
+
+/* SKILLS */
+let cloudWords=[];
+INIT.skills=()=>{const cats=Object.keys(CONFIG.skills);let cur=cats[0];
+  $("#skTabs").innerHTML=cats.map(c=>`<button class="tab" role="tab" data-c="${c}">${c}</button>`).join("");
+  function draw(){$$("#skTabs .tab").forEach(t=>{t.classList.toggle("on",t.dataset.c===cur);t.setAttribute("aria-selected",t.dataset.c===cur)});
+    const L=CONFIG.skills[cur];
+    $("#radials").innerHTML=L.map(s=>`<div class="r"><svg viewBox="0 0 90 90"><circle class="bgc" cx="45" cy="45" r="40"/><circle class="fg" cx="45" cy="45" r="40" data-p="${s.p}"/></svg><div>${esc(s.n)}<br><b>${s.p}%</b></div></div>`).join("");
+    $("#bars").innerHTML=L.map(s=>`<div><div class="row" style="justify-content:space-between"><span>${esc(s.n)}</span><span>${s.p}%</span></div><div class="bar"><i data-w="${s.p}"></i></div></div>`).join("");
+    setTimeout(()=>{$$("#radials .fg").forEach(c=>c.style.strokeDashoffset=251-251*c.dataset.p/100);$$("#bars i").forEach(i=>i.style.width=i.dataset.w+"%")},60)}
+  $("#skTabs").onclick=e=>{const b=e.target.closest(".tab");if(b){cur=b.dataset.c;draw()}};draw();
+  /* 3D cloud: fibonacci sphere projected each frame */
+  const words=Object.values(CONFIG.skills).flat().map(s=>s.n),box=$("#cloud");
+  cloudWords=words.map((w,i)=>{const s=document.createElement("span");s.textContent=w;box.append(s);const k=words.length,phi=Math.acos(1-2*(i+.5)/k),th=Math.PI*(1+Math.sqrt(5))*(i+.5);return{s,x:Math.cos(th)*Math.sin(phi),y:Math.sin(th)*Math.sin(phi),z:Math.cos(phi)}});
+  let ax=.004,ay=.006,drag=false,lx,ly;box.addEventListener("pointerdown",e=>{drag=true;lx=e.clientX;ly=e.clientY});addEventListener("pointerup",()=>drag=false);
+  box.addEventListener("pointermove",e=>{if(drag){ay=(e.clientX-lx)*.0006;ax=(e.clientY-ly)*.0006;lx=e.clientX;ly=e.clientY}});
+  (function l(){if(document.hidden||!$("#page-skills").classList.contains("active")){return setTimeout(()=>requestAnimationFrame(l),300)}
+    const R=Math.min(box.clientWidth,340)/2.4;const cx=Math.cos(RM?0:ax),sx=Math.sin(RM?0:ax),cy=Math.cos(RM?0:ay),sy=Math.sin(RM?0:ay);
+    for(const w of cloudWords){let y=w.y*cx-w.z*sx,z=w.y*sx+w.z*cx;let x=w.x*cy+z*sy;z=-w.x*sy+z*cy;w.x=x;w.y=y;w.z=z;
+      const sc=(z+2)/3;w.s.style.transform=`translate(-50%,-50%) translate(${x*R}px,${y*R}px) scale(${sc+.3})`;w.s.style.opacity=.25+sc*.75;w.s.style.zIndex=Math.round(z*10)+10;w.s.style.fontSize="1.15rem"}
+    requestAnimationFrame(l)})();
+  initLab()};
+
+/* ROBOT LAB: live linear regression */
+function initLab(){const cv=$("#labCv"),g=cv.getContext("2d");let pts=[],w=0,b=0,training=false,ep=0;
+  const gold=()=>getComputedStyle(document.documentElement).getPropertyValue("--gold").trim();
+  const toN=p=>({x:p.x/cv.width,y:1-p.y/cv.height});
+  function draw(){g.clearRect(0,0,cv.width,cv.height);g.strokeStyle="rgba(212,175,55,.2)";for(let i=0;i<=8;i++){g.beginPath();g.moveTo(i*100,0);g.lineTo(i*100,340);g.stroke()}for(let i=0;i<=4;i++){g.beginPath();g.moveTo(0,i*85);g.lineTo(800,i*85);g.stroke()}
+    g.fillStyle=gold();pts.forEach(p=>{g.beginPath();g.arc(p.x,p.y,7,0,6.3);g.fill()});
+    if(pts.length>1){g.strokeStyle="#c0392b";g.lineWidth=3;g.beginPath();g.moveTo(0,(1-b)*340);g.lineTo(800,(1-(w+b))*340);g.stroke();g.lineWidth=1}
+    if(!pts.length){g.fillStyle="#999";g.font="16px Inter,sans-serif";g.fillText("Click here to add data points",300,175)}}
+  function loss(){if(!pts.length)return 0;return pts.reduce((s,p)=>{const n=toN(p),e=w*n.x+b-n.y;return s+e*e},0)/pts.length}
+  function step(){const n=pts.length;let gw=0,gb=0;pts.forEach(p=>{const q=toN(p),e=w*q.x+b-q.y;gw+=2*e*q.x/n;gb+=2*e/n});w-=.3*gw;b-=.3*gb;ep++;$("#labLoss").textContent=loss().toFixed(4);$("#labEp").textContent=ep}
+  function tick(){if(!training)return;for(let i=0;i<3;i++)step();draw();if(ep>1500||!$("#page-skills").classList.contains("active")){training=false;$("#labTrain").textContent="▶ Train";return}requestAnimationFrame(tick)}
+  cv.addEventListener("pointerdown",e=>{const r=cv.getBoundingClientRect();pts.push({x:(e.clientX-r.left)*cv.width/r.width,y:(e.clientY-r.top)*cv.height/r.height});draw();beep(700,.05)});
+  $("#labTrain").onclick=()=>{if(pts.length<2)return toast("Add at least 2 points");training=!training;$("#labTrain").textContent=training?"⏸ Pause":"▶ Train";if(training){ep=0;tick()}};
+  $("#labRand").onclick=()=>{pts=Array.from({length:14},(_,i)=>({x:40+i*55+Math.random()*20,y:300-i*17+(Math.random()-.5)*90}));w=0;b=.5;ep=0;draw()};
+  $("#labClear").onclick=()=>{pts=[];w=0;b=0;ep=0;training=false;$("#labTrain").textContent="▶ Train";$("#labLoss").textContent="–";$("#labEp").textContent=0;draw()};
+  draw()}
+
+/* PROJECTS */
+INIT.projects=()=>{let tag="All",q="",sort="featured";const tags=["All",...new Set(CONFIG.projects.flatMap(p=>p.tags))];
+  $("#pTags").innerHTML=tags.map(t=>`<button class="tab" data-t="${t}">${t}</button>`).join("");
+  function draw(){$$("#pTags .tab").forEach(t=>t.classList.toggle("on",t.dataset.t===tag));
+    let L=CONFIG.projects.filter(p=>(tag==="All"||p.tags.includes(tag))&&(p.title+p.desc+p.tags.join(" ")+p.stack.join(" ")).toLowerCase().includes(q));
+    L.sort((a,b)=>sort==="newest"?b.date.localeCompare(a.date):(b.featured-a.featured)||b.date.localeCompare(a.date));
+    $("#pGrid").innerHTML=L.length?L.map(p=>`<article class="card tilt proj" tabindex="0" role="button" data-id="${p.id}" aria-label="Open ${esc(p.title)} details"><h3>${p.featured?'<span class="star">★</span> ':""}${esc(p.title)}</h3><p>${esc(p.desc)}</p><div>${p.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div><div class="row" style="margin-top:auto">${p.live?`<a class="btn" href="${esc(p.live)}" target="_blank" rel="noopener">Live</a>`:""}<a class="btn" href="${esc(p.code)}" target="_blank" rel="noopener">Code</a></div></article>`).join(""):'<p class="sub">No projects match.</p>';bindTilt($("#pGrid"))}
+  $("#pTags").onclick=e=>{const b=e.target.closest(".tab");if(b){tag=b.dataset.t;draw()}};
+  $("#pSearch").oninput=e=>{q=e.target.value.toLowerCase();draw()};$("#pSort").onchange=e=>{sort=e.target.value;draw()};
+  $("#pGrid").addEventListener("click",e=>{if(e.target.closest("a"))return;const c=e.target.closest(".proj");c&&openProject(c.dataset.id)});
+  $("#pGrid").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("proj"))openProject(e.target.dataset.id)});draw()};
+function openProject(id){const p=CONFIG.projects.find(x=>x.id===id);if(!p)return;
+  $("#modal").innerHTML=`<button class="ibtn x" aria-label="Close">✕</button><h2 style="font-size:2rem">${esc(p.title)}</h2><p>${esc(p.desc)}</p><div class="shot">Screenshot placeholder</div><h4>Features</h4><ul style="margin:6px 0 12px 20px">${p.features.map(f=>`<li>${esc(f)}</li>`).join("")}</ul><h4>Tech stack</h4><div>${p.stack.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div><div class="row" style="margin-top:16px">${p.live?`<a class="btn pri" href="${esc(p.live)}" target="_blank" rel="noopener">Live</a>`:""}<a class="btn" href="${esc(p.code)}" target="_blank" rel="noopener">Code</a></div>`;
+  $("#modal .x").onclick=()=>closeO($("#modalO"));openO($("#modalO"))}
+
+/* GITHUB */
+const LC={Python:"#3572A5",JavaScript:"#f1e05a",HTML:"#e34c26",CSS:"#563d7c",TypeScript:"#3178c6","Jupyter Notebook":"#DA5B0B",Java:"#b07219",C:"#555555","C++":"#f34b7d",Shell:"#89e051"};
+INIT.github=async()=>{const U=CONFIG.github;$("#repos").innerHTML=Array(6).fill('<div class="sk"></div>').join("");
+  const hi=$("#heat");hi.src=`https://ghchart.rshah.org/D4AF37/${U}`;hi.onerror=()=>{hi.style.display="none";const f=$("#heatFb");f.style.display="block";f.innerHTML=`Heatmap unavailable. <a href="https://github.com/${U}" target="_blank" rel="noopener">View contributions on GitHub</a>.`};
+  async function get(u,k){const c=store.get(k,1);if(c)return JSON.parse(c);const r=await fetch(u);if(r.status===403||r.status===429)throw new Error("rate");if(!r.ok)throw new Error(r.status);const j=await r.json();store.set(k,JSON.stringify(j),1);return j}
+  try{const [u,rp]=await Promise.all([get(`https://api.github.com/users/${U}`,"gh_u"),get(`https://api.github.com/users/${U}/repos?per_page=100&sort=updated`,"gh_r")]);
+    $("#ghHead").innerHTML=`<img src="${esc(u.avatar_url)}" alt="GitHub avatar of ${esc(U)}"><div><h3 style="font-size:1.8rem">${esc(u.name||U)}</h3><p>${esc(u.bio||CONFIG.bio)}</p><div class="row" style="margin-top:8px"><span class="chip">👥 ${u.followers} followers</span><span class="chip">📦 ${u.public_repos} repos</span><a class="btn" href="${esc(u.html_url)}" target="_blank" rel="noopener">Follow</a></div></div>`;
+    const R=rp.filter(r=>!r.fork||true),langs={};R.forEach(r=>{if(r.language)langs[r.language]=(langs[r.language]||0)+1});
+    drawDonut(langs);$("#rLang").innerHTML='<option value="">All languages</option>'+Object.keys(langs).map(l=>`<option>${esc(l)}</option>`).join("");
+    let q="",lg="",so="updated";
+    function draw(){let L=R.filter(r=>(r.name+(r.description||"")).toLowerCase().includes(q)&&(!lg||r.language===lg));
+      L.sort((a,b)=>{const pa=CONFIG.pinned.includes(a.name),pb=CONFIG.pinned.includes(b.name);if(pa!==pb)return pb-pa;return so==="stars"?b.stargazers_count-a.stargazers_count:so==="name"?a.name.localeCompare(b.name):new Date(b.pushed_at)-new Date(a.pushed_at)});
+      $("#repos").innerHTML=L.length?L.map(r=>`<a class="card tilt" style="text-decoration:none;display:block" href="${esc(r.html_url)}" target="_blank" rel="noopener"><h3>${CONFIG.pinned.includes(r.name)?"📌 ":""}${esc(r.name)}</h3><p style="color:var(--muted);font-size:.9rem;min-height:2.6em">${esc(r.description||"No description")}</p><div class="row" style="margin-top:8px;font-size:.82rem">${r.language?`<span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${LC[r.language]||"#D4AF37"}"></i> ${esc(r.language)}</span>`:""}<span>★ ${r.stargazers_count}</span><span>⑂ ${r.forks_count}</span><span>${new Date(r.pushed_at).toLocaleDateString()}</span></div></a>`).join(""):'<p class="sub">No repositories found.</p>';bindTilt($("#repos"))}
+    $("#rSearch").oninput=e=>{q=e.target.value.toLowerCase();draw()};$("#rLang").onchange=e=>{lg=e.target.value;draw()};$("#rSort").onchange=e=>{so=e.target.value;draw()};draw()
+  }catch(err){const rate=err.message==="rate";$("#ghHead").innerHTML=`<div><h3>GitHub data unavailable</h3><p>${rate?"GitHub's rate limit was hit — please try again in a little while.":"Couldn't load GitHub data right now."}</p><a class="btn pri" style="margin-top:10px" href="https://github.com/${U}" target="_blank" rel="noopener">Open GitHub profile</a></div>`;$("#repos").innerHTML="";$("#donut").innerHTML="<p class='sub'>No data.</p>"}};
+function drawDonut(langs){const e=Object.entries(langs).sort((a,b)=>b[1]-a[1]),t=e.reduce((s,x)=>s+x[1],0);if(!t){$("#donut").innerHTML="<p class='sub'>No language data.</p>";return}
+  let off=0;const C=2*Math.PI*40;const segs=e.map(([l,c])=>{const len=c/t*C,s=`<circle r="40" cx="60" cy="60" fill="none" stroke="${LC[l]||"#D4AF37"}" stroke-width="20" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 60 60)"/>`;off+=len;return s}).join("");
+  $("#donut").innerHTML=`<svg viewBox="0 0 120 120" width="150" height="150" role="img" aria-label="Language breakdown donut chart">${segs}<text x="60" y="65" text-anchor="middle" font-size="14" fill="currentColor">${t}</text></svg><div class="legend">${e.map(([l,c])=>`<span><i style="background:${LC[l]||"#D4AF37"}"></i>${esc(l)} ${Math.round(c/t*100)}%</span>`).join("")}</div>`}
+
+/* ACHIEVEMENTS + TESTIMONIALS */
+INIT.achievements=()=>{$("#certs").innerHTML=CONFIG.certificates.map((c,i)=>`<div class="card tilt cert reveal" tabindex="0" role="button" data-i="${i}"><div class="medal">🏅</div><h3>${esc(c.t)}</h3><p style="color:var(--muted)">${esc(c.o)} · ${esc(c.y)}</p></div>`).join("");
+  const open=i=>{const c=CONFIG.certificates[i];$("#light").innerHTML=`<button class="ibtn x" aria-label="Close">✕</button><h3 style="margin-bottom:12px">${esc(c.t)}</h3>${c.img?`<img src="${esc(c.img)}" alt="${esc(c.t)} certificate" style="max-width:100%;border-radius:12px">`:'<div class="shot">Certificate image placeholder</div>'}<p>${esc(c.o)} · ${esc(c.y)}</p>`;$("#light .x").onclick=()=>closeO($("#lightO"));openO($("#lightO"))};
+  $("#certs").addEventListener("click",e=>{const c=e.target.closest(".cert");c&&open(+c.dataset.i)});$("#certs").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset.i)open(+e.target.dataset.i)});
+  bindTilt();
+  const T=CONFIG.testimonials;$("#track").innerHTML=T.map(t=>`<div class="slide"><blockquote>“${esc(t.q)}”</blockquote><p style="margin-top:10px;color:var(--muted)">— ${esc(t.n)}, ${esc(t.r)}</p></div>`).join("");
+  $("#dots").innerHTML=T.map((_,i)=>`<button aria-label="Go to slide ${i+1}" data-i="${i}"></button>`).join("");
+  let i=0,timer;const show=n=>{i=(n+T.length)%T.length;$("#track").style.transform=`translateX(-${i*100}%)`;$$("#dots button").forEach((d,k)=>d.classList.toggle("on",k===i))};
+  const auto=()=>{clearInterval(timer);if(!RM)timer=setInterval(()=>{if($("#page-achievements").classList.contains("active"))show(i+1)},5000)};
+  $("#dots").onclick=e=>{const b=e.target.closest("button");if(b){show(+b.dataset.i);auto()}};
+  let sx=null;const car=$("#car");car.addEventListener("pointerdown",e=>sx=e.clientX);car.addEventListener("pointerup",e=>{if(sx!==null&&Math.abs(e.clientX-sx)>40){show(i+(e.clientX<sx?1:-1));auto()}sx=null});
+  show(0);auto()};
+
+/* CONTACT — digital card + local portfolio Q&A */
+const ICONS={GitHub:'<path d="M12 .5a11.5 11.5 0 00-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.300.8-1.600-2.600-.3-5.300-1.300-5.300-5.700 0-1.300.5-2.300 1.200-3.100-.1-.3-.5-1.500.1-3.100 0 0 1-.3 3.200 1.200a11 11 0 015.800 0c2.200-1.500 3.200-1.200 3.200-1.200.6 1.600.2 2.800.1 3.100.8.8 1.200 1.800 1.200 3.100 0 4.400-2.700 5.400-5.300 5.700.4.4.8 1.100.8 2.200v3.200c0 .3.2.7.8.6A11.500 11.500 0 0012 .5z"/>',
+  LinkedIn:'<path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.600h.1c.5-1 1.800-2 3.700-2 4 0 4.700 2.600 4.700 6V21h-4v-5c0-1.200 0-2.800-1.700-2.800s-2 1.300-2 2.700V21h-4z"/>',
+  Email:'<path d="M2 5h20v14H2zM4 7v.5l8 5.500 8-5.500V7zm16 3l-8 5.500L4 10v7h16z" fill-rule="evenodd"/>'};
+const PROFILE_URL="https://developer-srish.github.io/portfolio/";
+function saveContactCard(){
+  const vcard=["BEGIN:VCARD","VERSION:3.0","FN:"+CONFIG.name,"N:Ghosh;Srish;;;","TITLE:"+CONFIG.role,"EMAIL;TYPE=INTERNET:"+CONFIG.email,"URL:"+PROFILE_URL,"NOTE:Python Developer and AI/ML Learner","ADR;TYPE=HOME:;;Malda;West Bengal;;;India","END:VCARD"].join("\r\n");
+  const blob=new Blob([vcard],{type:"text/vcard;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="Srish-Ghosh.vcf";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);toast("Contact card downloaded ✔");
+}
+function addChatMessage(text,who){const el=document.createElement("div");el.className="chat-msg "+who;el.textContent=text;$("#chatLog").appendChild(el);$("#chatLog").scrollTop=$("#chatLog").scrollHeight}
+function portfolioAnswer(question){
+  const q=String(question||"").toLowerCase().trim();
+  const projects=CONFIG.projects;
+  const projectList=projects.map(p=>"• "+p.title+": "+p.desc+" Tech: "+p.stack.join(", ")).join("\n");
+  if(!q)return "Type a question or tap one of the floating question bubbles.";
+  if(/what can you answer|all questions|help|suggest|question bubbles|capabilit/.test(q))return "Try asking me about: Srish's bio and location; skills and tools; every project listed in this portfolio; FaceCore and computer vision; GitHub and contact details; resume; learning goals; or beginner topics like Python, HTML/CSS/JavaScript, AI vs ML, scikit-learn, OpenCV, Git, and basic coding logic. I'm an offline rule-based assistant, so I can't reliably answer every possible question or fetch live facts.";
+  if(/^(hi|hello|hey|good morning|good afternoon|good evening)\b/.test(q))return "Hey there! 👋 I'm Srish's little portfolio robot. Ask me about Srish, his projects, Python, AI/ML, or use the floating question bubbles. You can also tap the microphone to speak if your browser supports it.";
+  if(/who are you|your name|are you a real ai/.test(q))return "I'm the offline portfolio assistant on Srish Ghosh's website. I use locally defined profile facts and simple matching rules—not a remote AI model—so your questions stay in this page.";
+  if(/who is|about srish|tell me about srish|about you|your bio|introduce/.test(q))return CONFIG.name+" is a "+CONFIG.role+" based in "+CONFIG.location+". "+CONFIG.bio+" Current portfolio focus: Python, web development, automation, and learning AI/ML.";
+  if(/age|how old|birthday|date of birth/.test(q))return "Srish hasn't added his age or birthday to the public portfolio profile, so I won't guess or share a personal detail that isn't listed.";
+  if(/skill|language|technology|tech stack|what do you know|tools/.test(q))return "Srish's listed skills and tools include Python, JavaScript, HTML/CSS, SQL, OpenCV, DeepFace, scikit-learn, PyTorch (learning), Flask, Git/GitHub, VS Code, Tkinter, Linux, responsive UI, Canvas/SVG, and GitHub Pages. These are portfolio-listed skills, not a claim that every tool is at expert level.";
+  if(/facecore|face swap|face recognition|computer vision|attendance/.test(q))return "FaceCore is one of Srish's computer-vision project areas. His project notes mention face detection/recognition, comparing faces, registering and recognizing people, landmarks, analysis, webcam recognition, and face swapping across project versions. The portfolio also lists a Face Attendance System built with Python, DeepFace, OpenCV, and Tkinter. See the projects and GitHub links for code and current status.";
+  if(/project|what have you built|what did you build|show.*work|portfolio projects|made|created/.test(q))return "Projects listed in this portfolio:\n"+projectList+"\nOpen the Projects page or GitHub to explore more. The list may not include every repository.";
+  const match=projects.find(p=>q.includes(p.title.toLowerCase())||q.includes(p.id.toLowerCase()));
+  if(match)return match.title+" — "+match.desc+"\nFeatures: "+match.features.join(", ")+". Tech stack: "+match.stack.join(", ")+". Source: "+match.code;
+  if(/github|repo|source code|code link/.test(q))return "GitHub profile: https://github.com/"+CONFIG.github+" . The repository list on this portfolio can load public repositories when GitHub is reachable.";
+  if(/contact|email|reach|hire|collaborat|message/.test(q))return "You can contact Srish at "+CONFIG.email+" or through GitHub: https://github.com/"+CONFIG.github+". Use the digital business card buttons to copy details.";
+  if(/resume|cv|curriculum/.test(q))return "Use the Download Resume button on this Contact page. It opens the browser print dialog, where you can choose Save as PDF.";
+  if(/where|location|from|city|hometown/.test(q))return "The public portfolio lists Srish's location as "+CONFIG.location+".";
+  if(/learn|learning|roadmap|future|goal|improve/.test(q))return "The portfolio says Srish is currently learning AI/ML, scikit-learn, PyTorch, LLMs and prompting, and data structures. He likes learning by building practical Python tools and web projects.";
+  if(/favourite|favorite|fun fact|fuel|tea|first language|hometown vibe/.test(q))return CONFIG.facts.map(f=>f.q+" "+f.a).join("\n");
+  if(/python|what is coding|programming|variable|loop|function|list in python|dictionary|class in python/.test(q)){
+    if(/variable/.test(q))return "A variable is a named place to keep a value. Python example: name = \"Srish\" then print(name).";
+    if(/loop/.test(q))return "A loop repeats code. Python example: for number in range(3): print(number) prints 0, 1, and 2.";
+    if(/function/.test(q))return "A function is a reusable block of code. Python example: def greet(name): return f'Hello, {name}!' then call greet('Srish').";
+    if(/list in python|python list/.test(q))return "A Python list stores multiple values in order, for example: skills = ['Python', 'HTML', 'CSS']. Use skills.append('JavaScript') to add an item.";
+    if(/dictionary/.test(q))return "A Python dictionary stores key-value pairs, for example: person = {'name': 'Srish', 'role': 'Python Developer'}. Read a value with person['name'].";
+    if(/class in python/.test(q))return "A Python class is a blueprint for objects. Example: class Robot:\n    def greet(self):\n        return 'Hello!'\nrobot = Robot()\nprint(robot.greet())";
+    return "Python is a programming language used to build scripts, websites, automation, data tools, and AI/ML projects. Example: print('Hello, world!'). Ask me about variables, loops, functions, lists, dictionaries, or classes for a simple explanation.";
+  }
+  if(/machine learning|\bml\b|ai vs|artificial intelligence|what is ai|what is ml/.test(q))return "Artificial intelligence (AI) is the broad idea of making software perform tasks that seem intelligent. Machine learning (ML) is one part of AI where a model learns patterns from examples. Srish is exploring ML with tools such as scikit-learn and computer vision with OpenCV.";
+  if(/html|css|javascript|web development|website/.test(q))return "HTML gives a webpage its structure, CSS controls its appearance, and JavaScript adds interaction. Srish's portfolio uses web technologies including HTML, CSS, and JavaScript, and he builds responsive websites.";
+  if(/scikit|decision tree|linear regression|logistic regression|model/.test(q))return "scikit-learn is a Python library for machine learning. Linear regression predicts a number; logistic regression is commonly used for classification; a decision tree makes predictions using a sequence of feature-based questions. This assistant can explain basics, but it doesn't train or run a model.";
+  if(/opencv/.test(q))return "OpenCV is a computer-vision library used to process images and video. Srish's portfolio lists it among the tools used in face-related projects.";
+  if(/git|github pages|deploy|host/.test(q))return "Git tracks changes in files, GitHub hosts repositories, and GitHub Pages can publish static websites from a repository. Srish's profile is https://github.com/"+CONFIG.github+" and the portfolio is "+PROFILE_URL;
+  if(/thank/.test(q))return "You're welcome! ✨ If you'd like, ask me about a project, a skill, or a beginner coding concept.";
+  return "I couldn't find a confident offline answer for that yet. Try asking about Srish's bio, skills, FaceCore, projects, GitHub, contact details, learning goals, Python basics, web development, AI vs ML, OpenCV, or scikit-learn. Because I'm offline and rule-based, I don't know everything—but the question list can be expanded in the CONFIG and answer rules.";
+}
+INIT.contact=()=>{
+  $("#soc").innerHTML=Object.entries(CONFIG.links).map(([k,v])=>`<a class="ibtn" href="${esc(v)}" target="_blank" rel="noopener" aria-label="${esc(k)}" title="${esc(k)}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]||'<circle cx="12" cy="12" r="8"/>'}</svg></a>`).join("");
+  $("#profileQr").src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=6&data="+encodeURIComponent(PROFILE_URL);
+  $("#copyMail").onclick=copyMail;$("#resumeBtn").onclick=printResume;$("#saveVcard").onclick=saveContactCard;
+  $("#copyProfile").onclick=async()=>{try{await navigator.clipboard.writeText(PROFILE_URL);toast("Portfolio link copied ✔")}catch(e){prompt("Copy this portfolio link:",PROFILE_URL)}};
+  let speakAnswers=false;
+  const speak=text=>{if(!speakAnswers||!("speechSynthesis" in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=1;u.pitch=1.04;speechSynthesis.speak(u)}catch(e){}};
+  const ask=q=>{const question=String(q||"").trim();if(!question)return;addChatMessage(question,"user");$("#aiQuestion").value="";$("#aiStatus").textContent="◌ Thinking with offline knowledge…";const answer=portfolioAnswer(question);setTimeout(()=>{addChatMessage(answer,"bot");$("#aiStatus").textContent="● Offline smart assistant · Ready";speak(answer)},220)};
+  $("#aiForm").onsubmit=e=>{e.preventDefault();ask($("#aiQuestion").value)};
+  $("#quickAsks").onclick=e=>{const b=e.target.closest("button[data-q]");if(b)ask(b.dataset.q)};
+  $("#speakToggle").onclick=()=>{speakAnswers=!speakAnswers;$("#speakToggle").textContent=speakAnswers?"🔊 Read answers aloud: On":"🔊 Read answers aloud: Off";$("#speakToggle").setAttribute("aria-pressed",String(speakAnswers));if(!speakAnswers&&"speechSynthesis" in window)speechSynthesis.cancel();else if(!("speechSynthesis" in window))toast("Speech output isn't supported in this browser")};
+  $("#clearChat").onclick=()=>{$("#chatLog").innerHTML="";if("speechSynthesis" in window)speechSynthesis.cancel();addChatMessage("Chat cleared. I'm ready for a new question! 🤖","bot")};
+  $("#voiceBtn").onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast("Voice input isn't supported here. Try Chrome or type your question.");return}try{const rec=new SR();rec.lang="en-IN";rec.interimResults=false;rec.maxAlternatives=1;$("#voiceBtn").textContent="🎙️ Listening…";$("#aiStatus").textContent="● Listening for your question";rec.onresult=e=>{const said=e.results[0][0].transcript;$("#aiQuestion").value=said;ask(said)};rec.onerror=()=>toast("Couldn't hear that. Check microphone permission or type instead.");rec.onend=()=>{$("#voiceBtn").textContent="🎙️";$("#aiStatus").textContent="● Offline smart assistant · Ready"};rec.start()}catch(e){toast("Voice input could not start. Type your question instead.")}};
+};
+async function copyMail(){try{await navigator.clipboard.writeText(CONFIG.email);toast("Email copied ✔")}catch(e){toast(CONFIG.email)}}
+function printResume(){const R=CONFIG.resume;$("#resume").innerHTML=`<h1>${esc(CONFIG.name)}</h1><p>${esc(CONFIG.role)} · ${esc(CONFIG.location)}<br>${esc(CONFIG.email)} · github.com/${esc(CONFIG.github)}</p><h2>Summary</h2><p>${esc(R.summary)}</p><h2>Skills</h2><p>${R.skills.map(esc).join(", ")}</p><h2>Experience</h2><ul>${R.experience.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><h2>Projects</h2><ul>${CONFIG.projects.map(p=>`<li><b>${esc(p.title)}</b> — ${esc(p.desc)}</li>`).join("")}</ul><h2>Education</h2><ul>${R.education.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;toast("Choose 'Save as PDF' in the print dialog");setTimeout(()=>print(),300)}
+$("#foot").innerHTML=`© ${new Date().getFullYear()} ${esc(CONFIG.name)} · Built with Python-powered curiosity 🐍 · <a href="#/home">Home</a>`;
+
+
+/* VIEW MODE: desktop <-> phone */
+function setView(v,save){document.body.classList.toggle("phone-view",v==="phone");const b=$("#viewBtn");b.textContent=v==="phone"?"🖥️":"📱";b.title=v==="phone"?"Switch to desktop view":"Switch to phone view";if(save)store.set("view",v)}
+function toggleView(){const v=document.body.classList.contains("phone-view")?"desktop":"phone";setView(v,true);toast(v==="phone"?"Phone view":"Desktop view")}
+$("#viewBtn").onclick=toggleView;
+setView(store.get("view")==="phone"?"phone":"desktop");
+
+/* ================================================================
+   9. COMMAND PALETTE + SHORTCUTS
+   ================================================================ */
+function cmds(){return[...ROUTES.map(([r,l],i)=>({t:"Go to "+l,k:i+1<=6?String(i+1):"",f:()=>go(r)})),
+  ...CONFIG.projects.map(p=>({t:"Project: "+p.title,k:"",f:()=>{go("projects");setTimeout(()=>openProject(p.id),150)}})),
+  {t:"Toggle theme",k:"T",f:toggleTheme},{t:"Open GitHub profile",k:"",f:()=>open(CONFIG.links.GitHub,"_blank","noopener")},{t:"Copy email",k:"",f:copyMail},
+  {t:"Download resume (print)",k:"",f:printResume},{t:"Share this site",k:"",f:share},{t:"Toggle desktop / phone view",k:"",f:toggleView},{t:"Back to top",k:"",f:()=>scrollTo(0,0)}]}
+let sel=0,list=[];
+function palDraw(){const q=$("#palIn").value.toLowerCase();list=cmds().filter(c=>c.t.toLowerCase().includes(q));sel=Math.min(sel,Math.max(list.length-1,0));
+  $("#palList").innerHTML=list.map((c,i)=>`<li data-i="${i}" class="${i===sel?"sel":""}"><span>${esc(c.t)}</span>${c.k?`<kbd>${c.k}</kbd>`:""}</li>`).join("")||'<li>No results</li>'}
+function palOpen(){$("#palIn").value="";sel=0;palDraw();openO($("#pal"))}
+function palRun(i){const c=list[i];if(!c)return;closeO($("#pal"));setTimeout(c.f,50)}
+$("#palIn").oninput=()=>{sel=0;palDraw()};
+$("#palList").onclick=e=>{const li=e.target.closest("li[data-i]");li&&palRun(+li.dataset.i)};
+$("#palIn").onkeydown=e=>{if(e.key==="ArrowDown"){e.preventDefault();sel=Math.min(sel+1,list.length-1);palDraw()}else if(e.key==="ArrowUp"){e.preventDefault();sel=Math.max(sel-1,0);palDraw()}else if(e.key==="Enter"){e.preventDefault();palRun(sel)}};
+$("#kBtn").onclick=palOpen;
+addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();return palOpen()}
+  if(e.key==="Escape"){$$(".overlay.on").forEach(closeO);return}
+  const tg=e.target.tagName;if(/INPUT|TEXTAREA|SELECT/.test(tg)||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(/^[1-6]$/.test(e.key))go(ROUTES[+e.key-1][0]);else if(e.key.toLowerCase()==="t")toggleTheme();
+});
+
+/* ================================================================
+   10. PWA (manifest + inline service worker, best-effort)
+   ================================================================ */
+try{const man={name:CONFIG.name+" — Portfolio",short_name:"Srish",start_url:"./",display:"standalone",background_color:"#FAF6EC",theme_color:"#D4AF37",
+  icons:[{src:"data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#3B2F1E"/><text x="32" y="44" font-size="34" text-anchor="middle" fill="#E8C872" font-family="Georgia">S</text></svg>'),sizes:"192x192",type:"image/svg+xml"}]};
+  $("#manifestLink").href=URL.createObjectURL(new Blob([JSON.stringify(man)],{type:"application/manifest+json"}));
+  if("serviceWorker"in navigator&&location.protocol.startsWith("http")){
+    const sw=`self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const c=r.clone();caches.open('p1').then(k=>k.put(e.request,c));return r}).catch(()=>caches.match(e.request)))});`;
+    navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:"text/javascript"}))).catch(()=>{/* Blob SW is blocked in most browsers; site still works normally */})}
+}catch(e){}
+
+/* ================================================================
+   11. BOOT
+   ================================================================ */
+if(!location.hash)history.replaceState(null,"","#/home");
+route();
+</script>
+</body>
+</html>
